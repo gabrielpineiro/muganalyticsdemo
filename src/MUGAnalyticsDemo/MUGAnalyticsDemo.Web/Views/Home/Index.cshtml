@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script>
+        $(document).ready(function () {
+            var source = new EventSource("@Url.Action("Updates", "Home")");
+
+            source.onmessage = function (e) {
+                var data = JSON.parse(e.data);
+                
+                $('#chart-container').highcharts({
+                    title: {
+                        text: 'Monthly Average Temperature',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Temperature (°C)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        valueSuffix: '°C'
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderWidth: 0
+                    },
+                    series: data
+                });
+            };
+        });
+    </script>
+</head>
+<body>
+    <div id="chart-container">
+            
+    </div>
+</body>
+
+</html>
