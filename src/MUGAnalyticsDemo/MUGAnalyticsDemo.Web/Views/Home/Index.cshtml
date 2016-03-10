@@ -21,7 +21,7 @@
                 var data = [];
 
                 results.forEach(function (item) {
-                    data.push([new Date(), item.count]);
+                    data.push([new Date(), item.count, item.UserName]);
                 });
                 
                 $('#chart-container').highcharts({
@@ -47,7 +47,7 @@
                         verticalAlign: 'middle',
                         borderWidth: 0
                     },
-                    series:[{data: data}]
+                    series:[{name: "algo", data: data}]
                 });
             };
         });

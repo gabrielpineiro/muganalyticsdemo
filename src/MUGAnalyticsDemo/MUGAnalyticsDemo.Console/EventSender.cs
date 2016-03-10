@@ -64,7 +64,6 @@ namespace MUGAnalyticsDemo.Console
                 var message = new
                 {
                     UserName = randomUser,
-                    Timestamp = DateTime.UtcNow.ToString("s", CultureInfo.InvariantCulture) + "Z",
                     id = Guid.NewGuid()
                 };
 
