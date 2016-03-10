@@ -16,11 +16,17 @@
             var source = new EventSource("@Url.Action("Updates", "Home")");
 
             source.onmessage = function (e) {
-                var data = JSON.parse(e.data);
+                var results = JSON.parse(e.data);
+
+                var data = [];
+
+                results.forEach(function (item) {
+                    data.push([new Date(), item.count]);
+                });
                 
                 $('#chart-container').highcharts({
                     title: {
-                        text: 'Monthly Average Temperature',
+                        text: '',
                         x: -20 //center
                     },
                     subtitle: {
@@ -28,21 +34,12 @@
                         x: -20
                     },
                     xAxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        type: "datetime"
                     },
                     yAxis: {
-                        title: {
-                            text: 'Temperature (°C)'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
                     },
                     tooltip: {
-                        valueSuffix: '°C'
+                        valueSuffix: ''
                     },
                     legend: {
                         layout: 'vertical',
@@ -50,7 +47,7 @@
                         verticalAlign: 'middle',
                         borderWidth: 0
                     },
-                    series: data
+                    series:[{data: data}]
                 });
             };
         });

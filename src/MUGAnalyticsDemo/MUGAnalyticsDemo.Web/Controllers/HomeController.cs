@@ -29,7 +29,7 @@ namespace MUGAnalyticsDemo.Web.Controllers
 
             var documentCollection = client.CreateDocumentCollectionQuery("dbs/" + database.Id).Where(c => c.Id == "demoCollection").AsEnumerable().FirstOrDefault();
 
-            var results = client.CreateDocumentQuery(documentCollection.SelfLink, "SELECT c.UserName, c.Timestamp FROM c").ToList();
+            var results = client.CreateDocumentQuery(documentCollection.SelfLink, "SELECT c.count, c.UserName, c.Timestamp FROM c").ToList();
 
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(results);
 
