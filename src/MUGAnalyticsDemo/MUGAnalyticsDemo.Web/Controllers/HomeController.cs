@@ -20,10 +20,7 @@ namespace MUGAnalyticsDemo.Web.Controllers
 
         public ActionResult Updates()
         {
-            var documentDBEndpointUrl = ConfigurationManager.AppSettings["Analytics.DocumentDB.Endpoint"];
-            var documentDBAuthKey = ConfigurationManager.AppSettings["Analytics.DocumentDB.AccountKey"];
-
-            var client = new DocumentClient(new Uri(documentDBEndpointUrl), documentDBAuthKey);
+            var client = MvcApplication.Client;
 
             var database = client.CreateDatabaseQuery().Where(db => db.Id == "analyticsdata").AsEnumerable().FirstOrDefault();
 
